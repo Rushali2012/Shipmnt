@@ -1,91 +1,425 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Custom Table with Filters</title>
+    <link rel="stylesheet" href="pro.css">
+</head>
+<body>
+    <div class="filter-container">
+        <label for="search-bar">Search: </label>
+        <input type="text" id="search-bar" oninput="searchTable()">
+    </div>
+    <div class="filter-container">
+        <label>ID: </label>
+        <select id="id-filter-type">
+            <option value="equals">Equals</option>
+            <option value="less-than">Less than</option>
+            <option value="less-than-equal">Less than or equal</option>
+            <option value="greater-than">Greater than</option>
+            <option value="greater-than-equal">Greater than or equal</option>
+            <option value="range">Range</option>
+            <option value="not-equal">Not equal</option>
+        </select>
+        <input type="text" id="id-filter-value">
+        <input type="text" id="id-filter-value-2" style="display: none;">
+    </div>
+    <div class="filter-container">
+        <label>Name: </label>
+        <select id="name-filter-type">
+            <option value="contains">Contains</option>
+            <option value="not-contains">Not contains</option>
+            <option value="equals">Equals</option>
+            <option value="not-equal">Not equal</option>
+            <option value="starts-with">Starts with</option>
+            <option value="ends-with">Ends with</option>
+            <option value="is-null">Is null</option>
+            <option value="is-not-null">Is not null</option>
+        </select>
+        <input type="text" id="name-filter-value">
+    </div>
+    <div class="filter-container">
+        <label>Role: </label>
+        <select id="role-filter-type">
+            <option value="in">In</option>
+            <option value="equals">Equals</option>
+            <option value="not-equal">Not equal</option>
+            <option value="not-in">Not in</option>
+            <option value="is-null">Is null</option>
+        </select>
+        <input type="text" id="role-filter-value">
+    </div>
+    <div class="filter-container">
+        <label>Hire Date: </label>
+        <select id="hire-date-filter-type">
+            <option value="date-is">Date is</option>
+            <option value="date-range">Date range</option>
+            <option value="equals">Equals</option>
+            <option value="less-than">Less than</option>
+            <option value="less-than-equal">Less than or equal</option>
+            <option value="greater-than">Greater than</option>
+            <option value="greater-than-equal">Greater than or equal</option>
+            <option value="not-equal">Not equal</option>
+            <option value="is-null">Is null</option>
+            <option value="is-not-null">Is not null</option>
+        </select>
+        <input type="date" id="hire-date-filter-value">
+        <input type="date" id="hire-date-filter-value-2" style="display: none;">
+    </div>
+    <div class="filter-container">
+        <label>Is Active: </label>
+        <select id="is-active-filter-type">
+            <option value="is-null">Is null</option>
+            <option value="not-equal">Is not Equal</option>
+            <option value="equals">Equals</option>
+        </select>
+        <select id="is-active-filter-value">
+            <option value="">Select</option>
+            <option value="true">True</option>
+            <option value="false">False</option>
+        </select>
+    </div>
+    <button onclick="applyFilters()">Apply Filters</button>
+    <table id="data-table">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+                <th>Hire Date</th>
+                <th>Is Active</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Alice Johnson</td>
+                <td>Engineer</td>
+                <td>2022-01-15</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Bob Smith</td>
+                <td>Manager</td>
+                <td>2020-06-30</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Charlie Rose</td>
+                <td>Intern</td>
+                <td>2023-03-01</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>David Green</td>
+                <td>Director</td>
+                <td>2018-11-20</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Eva White</td>
+                <td>Designer</td>
+                <td>2021-05-15</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Frank Black</td>
+                <td>Engineer</td>
+                <td>2019-09-17</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Grace Brown</td>
+                <td>Engineer</td>
+                <td>2021-04-10</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>Hank Green</td>
+                <td>Senior Manager</td>
+                <td>2017-03-25</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Ivy Blue</td>
+                <td>Designer</td>
+                <td>2019-08-05</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Jack White</td>
+                <td>Product Manager</td>
+                <td>2020-02-20</td>
+                <td>false</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Kara Black</td>
+                <td>Engineer</td>
+                <td>2018-12-12</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Leo Green</td>
+                <td>Designer</td>
+                <td>2021-01-30</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Mona Blue</td>
+                <td>Engineer</td>
+                <td>2019-11-18</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Nina Brown</td>
+                <td>Intern</td>
+                <td>2023-04-14</td>
+                <td>true</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Oscar White</td>
+                <td>Director</td>
+                <td>2016-05-11</td>
+                <td>true</td>
+            </tr>
+        </tbody>
+    </table>
 
+    <script>
+        const mockData = [
+            {
+                id: 1,
+                name: "Alice Johnson",
+                role: "Engineer",
+                hireDate: "2022-01-15",
+                isActive: true
+            },
+            {
+                id: 2,
+                name: "Bob Smith",
+                role: "Manager",
+                hireDate: "2020-06-30",
+                isActive: false
+            },
+            {
+                id: 3,
+                name: "Charlie Rose",
+                role: "Intern",
+                hireDate: "2023-03-01",
+                isActive: true
+            },
+            {
+                id: 4,
+                name: "David Green",
+                role: "Director",
+                hireDate: "2018-11-20",
+                isActive: true
+            },
+            {
+                id: 5,
+                name: "Eva White",
+                role: "Designer",
+                hireDate: "2021-05-15",
+                isActive: true
+            },
+            {
+                id: 6,
+                name: "Frank Black",
+                role: "Engineer",
+                hireDate: "2019-09-17",
+                isActive: true
+            },
+            {
+                id: 7,
+                name: "Grace Brown",
+                role: "Engineer",
+                hireDate: "2021-04-10",
+                isActive: false
+            },
+            {
+                id: 8,
+                name: "Hank Green",
+                role: "Senior Manager",
+                hireDate: "2017-03-25",
+                isActive: true
+            },
+            {
+                id: 9,
+                name: "Ivy Blue",
+                role: "Designer",
+                hireDate: "2019-08-05",
+                isActive: true
+            },
+            {
+                id: 10,
+                name: "Jack White",
+                role: "Product Manager",
+                hireDate: "2020-02-20",
+                isActive: false
+            },
+            {
+                id: 11,
+                name: "Kara Black",
+                role: "Engineer",
+                hireDate: "2018-12-12",
+                isActive: true
+            },
+            {
+                id: 12,
+                name: "Leo Green",
+                role: "Designer",
+                hireDate: "2021-01-30",
+                isActive: true
+            },
+            {
+                id: 13,
+                name: "Mona Blue",
+                role: "Engineer",
+                hireDate: "2019-11-18",
+                isActive: true
+            },
+            {
+                id: 14,
+                name: "Nina Brown",
+                role: "Intern",
+                hireDate: "2023-04-14",
+                isActive: true
+            },
+            {
+                id: 15,
+                name: "Oscar White",
+                role: "Director",
+                hireDate: "2016-05-11",
+                isActive: true
+            }
+        ];
 
-body {
-    font-family: Arial, sans-serif;
-    background-color: #dadac7;
-    color: #4b3621; /* Coffee dark brown */
-}
+        function populateTable(data) {
+            const tableBody = document.querySelector('#data-table tbody');
+            tableBody.innerHTML = '';
+            data.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${item.id}</td>
+                    <td>${item.name}</td>
+                    <td>${item.role}</td>
+                    <td>${item.hireDate}</td>
+                    <td>${item.isActive}</td>
+                `;
+                tableBody.appendChild(row);
+            });
+        }
 
-.filter-container {
-    margin-bottom: 20px;
-}
+        
 
-.filter-container label {
-    font-weight: bold;
-    margin-right: 10px;
-}
+        function applyFilters() {
+            const filters = {
+                id: {
+                    type: document.getElementById('id-filter-type').value,
+                    value: document.getElementById('id-filter-value').value,
+                    value2: document.getElementById('id-filter-value-2').value
+                },
+                name: {
+                    type: document.getElementById('name-filter-type').value,
+                    value: document.getElementById('name-filter-value').value
+                },
+                role: {
+                    type: document.getElementById('role-filter-type').value,
+                    value: document.getElementById('role-filter-value').value
+                },
+                hireDate: {
+                    type: document.getElementById('hire-date-filter-type').value,
+                    value: document.getElementById('hire-date-filter-value').value,
+                    value2: document.getElementById('hire-date-filter-value-2').value
+                },
+                isActive: {
+                    type: document.getElementById('is-active-filter-type').value,
+                    value: document.getElementById('is-active-filter-value').value
+                }
+            };
 
-.filter-container select,
-.filter-container input {
-    margin-right: 10px;
-    padding: 5px;
-    border: 1px solid #b59a8a; /* Coffee medium brown */
-    border-radius: 5px;
-    background-color: #9e8b77;
-}
+            const filteredData = mockData.filter(row => {
+                return Object.keys(filters).every(key => {
+                    const filter = filters[key];
+                    switch (key) {
+                        case 'isActive':
+                            if (filter.type === 'equals') {
+                                return row[key] === (filter.value === 'true');
+                            }
+                            if (filter.type === 'not-equal') {
+                                return row[key] !== (filter.value === 'true');
+                            }
+                            return true; 
+                        default:
+                            switch (filter.type) {
+                                case 'equals':
+                                    return row[key] == filter.value;
+                                case 'less-than':
+                                    return row[key] < filter.value;
+                                case 'less-than-equal':
+                                    return row[key] <= filter.value;
+                                case 'greater-than':
+                                    return row[key] > filter.value;
+                                case 'greater-than-equal':
+                                    return row[key] >= filter.value;
+                                case 'range':
+                                    return row[key] >= filter.value && row[key] <= filter.value2;
+                                case 'not-equal':
+                                    return row[key] != filter.value;
+                                case 'contains':
+                                    return row[key].includes(filter.value);
+                                case 'not-contains':
+                                    return !row[key].includes(filter.value);
+                                case 'starts-with':
+                                    return row[key].startsWith(filter.value);
+                                case 'ends-with':
+                                    return row[key].endsWith(filter.value);
+                                case 'is-null':
+                                    return row[key] == null;
+                                case 'is-not-null':
+                                    return row[key] != null;
+                                case 'in':
+                                    return filter.value.split(',').includes(row[key]);
+                                case 'not-in':
+                                    return !filter.value.split(',').includes(row[key]);
+                                case 'date-is':
+                                    return row[key] === filter.value;
+                                case 'date-range':
+                                    return row[key] >= filter.value && row[key] <= filter.value2;
+                                default:
+                                    return true;
+                            }
+                    }
+                });
+            });
 
-button {
-    background-color: #6f4e37; /* Coffee medium brown */
-    color: #fff;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
+            populateTable(filteredData);
+        }
 
-button:hover {
-    background-color: #56382d; /* Coffee dark brown */
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-    background-color: #fff;
-    border-radius: 10px;
-    overflow: hidden;
-}
-
-thead {
-    background-color: #d2b48c; /* Coffee light brown */
-}
-
-thead th {
-    padding: 15px;
-    font-size: 16px;
-    color: #4b3621; /* Coffee dark brown */
-    cursor: pointer;
-    position: relative;
-}
-
-thead th:hover {
-    background-color: #b59a8a; /* Coffee medium brown */
-}
-
-tbody tr {
-    background-color: #fff;
-    transition: background-color 0.3s ease;
-}
-
-tbody tr:nth-child(even) {
-    background-color: #f3e5ab; /* Coffee lightest brown */
-}
-
-tbody tr:hover {
-    background-color: #e0cfa3; /* Coffee light brown */
-}
-
-tbody td {
-    padding: 15px;
-    text-align: left;
-    border: 1px solid #b59a8a; /* Coffee medium brown */
-}
-
-tbody td:first-child {
-    border-left: 0;
-}
-
-tbody td:last-child {
-    border-right: 0;
-}
+        function searchTable() {
+            const searchQuery = document.getElementById('search-bar').value.toLowerCase();
+            const filteredData = mockData.filter(row => {
+                return Object.values(row).some(value =>
+                    value.toString().toLowerCase().includes(searchQuery)
+                );
+            });
+            populateTable(filteredData);
+        }
+    </script>
+</body>
+</html>
