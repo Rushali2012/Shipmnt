@@ -1,0 +1,91 @@
+
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dadac7;
+    color: #4b3621; /* Coffee dark brown */
+}
+
+.filter-container {
+    margin-bottom: 20px;
+}
+
+.filter-container label {
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.filter-container select,
+.filter-container input {
+    margin-right: 10px;
+    padding: 5px;
+    border: 1px solid #b59a8a; /* Coffee medium brown */
+    border-radius: 5px;
+    background-color: #a2a26d;
+}
+
+button {
+    background-color: #6f4e37; /* Coffee medium brown */
+    color: #fff;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #56382d; /* Coffee dark brown */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    background-color: #fff;
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #d2b48c; /* Coffee light brown */
+}
+
+thead th {
+    padding: 15px;
+    font-size: 16px;
+    color: #4b3621; /* Coffee dark brown */
+    cursor: pointer;
+    position: relative;
+}
+
+thead th:hover {
+    background-color: #b59a8a; /* Coffee medium brown */
+}
+
+tbody tr {
+    background-color: #fff;
+    transition: background-color 0.3s ease;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #f3e5ab; /* Coffee lightest brown */
+}
+
+tbody tr:hover {
+    background-color: #e0cfa3; /* Coffee light brown */
+}
+
+tbody td {
+    padding: 15px;
+    text-align: left;
+    border: 1px solid #b59a8a; /* Coffee medium brown */
+}
+
+tbody td:first-child {
+    border-left: 0;
+}
+
+tbody td:last-child {
+    border-right: 0;
+}
